@@ -1,33 +1,52 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <h1>{{ msg }}</h1>
-    <el-button @click.native="startHacking">Let's do it</el-button>
+    <app-header></app-header>
+    <br>
+    <div class="col-xs-12 content">
+      <router-view></router-view>
+    </div>
+   
   </div>
 </template>
 
 <script>
-export default {
-  data () {
-    return {
-      msg: 'Use Vue 2.0 Today!'
-    }
-  },
+    import Header from './components/Header.vue';
+    import Footer from './components/Footer.vue';
 
-  methods: {
-    startHacking () {
-      this.$notify({
-        title: 'It Works',
-        message: 'We have laid the groundwork for you. Now it\'s your time to build something epic!',
-        duration: 6000
-      })
+    export default {
+        data() {
+            return {
+
+            }
+        },
+        methods: {},
+        components: {
+            appHeader: Header,
+            appFooter: Footer
+        }
+
     }
-  }
-}
 </script>
 
 <style>
-body {
-  font-family: Helvetica, sans-serif;
-}
+    html,
+    body {
+        height: 100%;
+    }
+    
+    .content {
+        overflow: hidden;
+        margin-bottom: 50px;
+    }
+    
+    a {
+        color: #0060B6;
+        text-decoration: none;
+    }
+    
+    a:hover {
+        color: #00A0C6;
+        text-decoration: none;
+        cursor: pointer;
+    }
 </style>
