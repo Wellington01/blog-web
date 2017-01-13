@@ -74,6 +74,12 @@
                         }
 
                         if (response.data) {
+
+                            this.$message({
+                                type: 'success',
+                                message: 'Excluído com sucesso.'
+                            });
+
                             this.loadCategories();
                         }
 

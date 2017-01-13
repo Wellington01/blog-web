@@ -7,22 +7,22 @@
         </el-row>
         <br>
         <el-table :data="posts" style="width: 100%" v-if="posts.length > 0" v-loading.body="loading">
-        <el-table-column label="Nome">
-            <template scope="scope">
-                <p>{{ scope.row.name }}</p>
-            </template>
-        </el-table-column>
-        <el-table-column :context="_self" label="Operações" align="right">
-            <template scope="scope">
-                <router-link :to="{ name : 'editPost', params: { id: scope.row.id}}">
-                    <el-button size="small" type="primary" icon="edit"></el-button>
-                </router-link>
-                <el-button size="small" type="danger" icon="delete" @click="deletePost(scope.row)"></el-button>
-            </template>
-        </el-table-column>
-        </el-table>
-        <router-view></router-view>
-    </div>
+<el-table-column label="Nome">
+    <template scope="scope">
+        <p>{{ scope.row.name }}</p>
+    </template>
+</el-table-column>
+<el-table-column :context="_self" label="Operações" align="right">
+    <template scope="scope">
+        <router-link :to="{ name : 'editPost', params: { id: scope.row.id}}">
+            <el-button size="small" type="primary" icon="edit"></el-button>
+        </router-link>
+        <el-button size="small" type="danger" icon="delete" @click="deletePost(scope.row)"></el-button>
+    </template>
+</el-table-column>
+</el-table>
+<router-view></router-view>
+</div>
 </template>
 
 <script>
@@ -32,7 +32,7 @@
         data() {
             return {
                 posts: [],
-                loading:true
+                loading: true
             }
         },
         methods: {
@@ -58,7 +58,12 @@
                     axios.delete(`/posts/${post.id}`).then(response => {
 
                         if (response.data) {
-                            alert('Deletado com sucesso.');
+
+                            this.$message({
+                                type: 'success',
+                                message: 'Excluído com sucesso.'
+                            });
+
                             this.loadPost();
                         }
 
