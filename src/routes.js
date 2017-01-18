@@ -2,12 +2,14 @@ import Home from './components/Home.vue';
 
 import Post from './components/post/post.vue';
 import ListPost from './components/post/listPost.vue';
-import NewPost from './components/post/newPost.vue';
+import CreatePost from './components/post/createPost.vue';
+import EditPost from './components/post/editPost.vue';
 import ViewPost from './components/post/viewPost.vue';
 
 import Category from './components/categories/category.vue';
 import ListCategory from './components/categories/listCategory.vue';
-import NewCategory from './components/categories/newCategory.vue';
+import CreateCategory from './components/categories/createCategory.vue';
+import EditCategory from './components/categories/editCategory.vue';
 
 export const routes = [
     { path: '/', component: Home },
@@ -16,8 +18,8 @@ export const routes = [
         component: Post,
         children: [
             { path: '', component: ListPost },
-            { path: 'new', component: NewPost },
-            { path: 'edit/:id', component: NewPost, name: 'editPost' },
+            { path: 'new', component: CreatePost },
+            { path: 'edit/:id', component: EditPost, name: 'editPost' },
             { path: 'view/:id', component: ViewPost, name: 'viewPost' }
         ]
     },
@@ -26,8 +28,8 @@ export const routes = [
         component: Category,
         children: [
             { path: '', component: ListCategory },
-            { path: 'new', component: NewCategory },
-            { path: 'edit/:id', component: NewCategory, name: 'editCategory' }
+            { path: 'new', component: CreateCategory },
+            { path: 'edit/:id', component: EditCategory, name: 'editCategory' }
         ]
     },
 ]

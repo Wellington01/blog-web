@@ -25,7 +25,7 @@
                     <router-link :to="{ name : 'editCategory', params: { id: scope.row.id}}">
                         <el-button size="small" type="primary" icon="edit"></el-button>
                     </router-link>
-                    <el-button size="small" type="danger" icon="delete" @click="deleteCategory(scope.row)"></el-button>
+                    <el-button size="small" type="danger" icon="delete" @click="onDelete(scope.row)"></el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -34,58 +34,38 @@
 </template>
 
 <script>
-    import axios from 'axios';
+
+    import { mapGetters, mapActions } from 'vuex';
 
     export default {
-        data() {
-            return {
-                categories: [],
-                loading:true
-            }
+        computed: {
+            ...mapGetters({
+                categories : 'allCategories'
+            })
         },
         methods: {
-            loadCategories() {
+            ...mapActions([
+                'loadCategories',
+                'deleteCategory'
+            ]),
+            notify(type, message){
 
-                axios.get('/categories').then(response => {
-
-                    this.categories = response.data;
-                    this.loading = false;
-
-                }).catch(error => {
-
-                    console.log(error);
+                this.$message({
+                    message: message,
+                    type: type,
+                    duration: 3700
                 });
             },
-            deleteCategory(category) {
+            onDelete(category) {
 
                 this.$confirm('Deseja realmente excluir a categoria: ' + category.name, 'Exclusão', {
                     confirmButtonText: 'Sim',
                     cancelButtonText: 'Cancelar',
                     type: 'warning'
                 }).then(() => {
-                    axios.delete(`/categories/${category.id}`).then(response => {
 
-                        if (response.data.error) {
-                            this.$message({
-                                message: response.data.error,
-                                type: 'error',
-                                duration: 3700
-                            });
-                        }
+                    this.deleteCategory({'id':category.id, 'callback': this.notify});
 
-                        if (response.data) {
-
-                            this.$message({
-                                type: 'success',
-                                message: 'Excluído com sucesso.'
-                            });
-
-                            this.loadCategories();
-                        }
-
-                    }).catch(error => {
-                        console.log(error);
-                    });
                 }).catch(() => {
                     this.$message({
                         type: 'info',

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <el-row >
+        <el-row gutter="10">
             <el-col :span="10" v-for="(post, index) in posts" :offset="1" class="card">
                 <el-card class="box-card" >
                     <div slot="header" class="clearfix">
@@ -14,30 +14,14 @@
 </template>
 
 <script>
-    import axios from 'axios';
-
     export default {
-        data() {
-            return {
-                posts: []
-            }
-        },
-        methods: {
-            loadPost() {
-
-                axios.get('/posts').then(response => {
-
-                    this.posts = response.data;
-                    this.loading = false;
-
-                }).catch(error => {
-
-                    console.log(error);
-                });
+        computed: {
+            posts() {
+                return this.$store.getters.allPosts;
             }
         },
         created() {
-            this.loadPost();
+            this.$store.dispatch('loadPosts');
         }
     }
 </script>

@@ -10,37 +10,23 @@
 </template>
 
 <script>
-    import axios from 'axios';
-
     export default {
-        data() {
-            return {
-                post: {}
-            }
-        },
         methods: {
-            loadPostById(id) {
-
-                axios.get(`/posts/${id}`)
-                    .then(response => {
-
-                        this.post = response.data;
-                        console.log(response);
-                    })
-                    .catch(error => {
-                        console.log(error);
-                    });
-            },
             postId() {
                 return this.$route.params.id;
             },
+        },
+        computed: {
+            post() {
+                return this.$store.getters.getPost;
+            }
         },
         created() {
 
             let postId = this.postId();
 
             if (postId) {
-                this.loadPostById(postId);
+                this.$store.dispatch('loadPost', postId);
             }
         }
     }
