@@ -3,7 +3,7 @@
         <el-form-item label="Nome" prop="name">
             <el-input v-model="item.name"></el-input>
         </el-form-item>
-        <el-form-item label="Categorias" prop="category_id" required="true">
+        <el-form-item label="Categorias" prop="category_id">
             <el-select v-model="item.category_id" placeholder="Selecione a categoria">
                 <el-option v-for="category in this.$store.getters.allCategories"
                     :label="category.name"

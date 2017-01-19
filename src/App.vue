@@ -1,12 +1,12 @@
 <template>
-  <div id="app">
-    <app-header></app-header>
-    <br>
-    <div class="col-xs-12 content">
-      <router-view></router-view>
+    <div id="app">
+        <app-header></app-header>
+        <br>
+        <section class="col-xs-12 content">
+            <router-view></router-view>
+        </section>
+        <app-footer></app-footer>
     </div>
-   
-  </div>
 </template>
 
 <script>
@@ -14,12 +14,6 @@
     import Footer from './components/Footer.vue';
 
     export default {
-        data() {
-            return {
-
-            }
-        },
-        methods: {},
         components: {
             appHeader: Header,
             appFooter: Footer
@@ -29,14 +23,29 @@
 </script>
 
 <style>
-    html,
-    body {
-        height: 100%;
+
+    * {
+        margin:0;
+        padding:0;
+        list-style:none;
+        vertical-align:baseline;
+    }
+
+    html, body{
+        height:100%;
+    }
+
+    #app{
+        position: relative;
+        padding-bottom: 150px;
+        min-height: 100%;
+        box-sizing: border-box;
     }
     
     .content {
         overflow: hidden;
         margin-bottom: 50px;
+        margin:8px;
     }
     
     a {

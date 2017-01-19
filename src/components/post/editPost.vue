@@ -15,7 +15,7 @@
         computed:{
             ...mapGetters({
                     item : 'getPost',
-                    rules: 'getRules'
+                    rules: 'getPostRules'
             })
         },
         methods: {

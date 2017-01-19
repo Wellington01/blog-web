@@ -1,7 +1,5 @@
 <template>
-    <div>
-        <app-card-post></app-card-post>
-    </div>
+    <app-card-post :posts="posts"></app-card-post>
 </template>
 
 <script>
@@ -10,6 +8,14 @@
     export default {
         components: {
             appCardPost: CardPost
+        },
+        computed: {
+            posts() {
+                return this.$store.getters.allPosts;
+            }
+        },
+        created() {
+            this.$store.dispatch('loadPosts');
         }
     }
 </script>
