@@ -8,7 +8,7 @@ export default {
         message: 'Nome deve conter no mínimo 3 caracteres.',
         trigger: 'blur'
     }],
-    category: [{
+    category_id: [{
         required: true,
         message: 'Categoria é obrigatório.',
         trigger: 'change'
