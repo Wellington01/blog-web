@@ -29,6 +29,7 @@
                 </template>
             </el-table-column>
         </el-table>
+        <app-pagination></app-pagination>
         <router-view></router-view>
     </div>
 </template>
@@ -36,8 +37,13 @@
 <script>
 
     import { mapGetters, mapActions } from 'vuex';
+    import pagination from '../Common/pagination.vue';
 
     export default {
+        name: 'ListCategory',
+        components:{
+            appPagination : pagination
+        },
         computed: {
             ...mapGetters({
                 categories : 'allCategories'

@@ -15,7 +15,7 @@
         computed:{
             ...mapGetters({
                     item : 'getCategory',
-                    rules: 'getRules'
+                    rules: 'getCategoryRules'
             })
         },
         methods: {

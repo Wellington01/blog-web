@@ -9,6 +9,7 @@ export default {
         trigger: 'blur'
     }],
     category_id: [{
+        type: 'number',
         required: true,
         message: 'Categoria é obrigatório.',
         trigger: 'change'

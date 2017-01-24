@@ -6,6 +6,7 @@
     import CardPost from './post/cardPost.vue';
 
     export default {
+        name:'Home',
         components: {
             appCardPost: CardPost
         },

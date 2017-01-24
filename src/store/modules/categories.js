@@ -33,7 +33,7 @@ const actions = {
 
         axios.get('/categories').then(response => {
 
-            commit('LOAD_CATEGORIES', response.data);
+            commit('LOAD_CATEGORIES', response.data.categories);
 
         }).catch(error => {
 
@@ -51,7 +51,7 @@ const actions = {
         axios.get(`/categories/${id}`)
             .then(response => {
 
-                commit('LOAD_CATEGORY', response.data);
+                commit('LOAD_CATEGORY', response.data.category);
             })
             .catch(error => {
                 console.log(error);

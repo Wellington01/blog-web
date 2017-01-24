@@ -30,6 +30,7 @@
     import { mapGetters, mapActions } from 'vuex';
 
     export default {
+        name:'ListPost',
         computed: {
             ...mapGetters({
                 posts : 'allPosts'

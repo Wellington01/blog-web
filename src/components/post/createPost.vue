@@ -1,5 +1,5 @@
 <template>
-    <app-post-form :item="item" :rules="this.$store.getters.getPostRules"></app-post-form>
+    <app-post-form :item="item" :rules="rules"></app-post-form>
 </template>
 
 <script>
@@ -21,8 +21,14 @@
                 }
             }
         },
+        computed:{
+            rules(){
+                return this.$store.getters.getPostRules;
+            }
+        },
         methods: {
             submit() {
+                this.item.rating = 3;
                 this.$store.dispatch('createPost', this.item);
             }
         }

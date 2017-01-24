@@ -1,5 +1,5 @@
 <template>
-    <app-category-form :item="item" :rules="this.$store.getters.getCategoryRules"></app-category-form>
+    <app-category-form :item="item" :rules="rules"></app-category-form>
 </template>
 
 <script>
@@ -17,6 +17,11 @@
                     id: null,
                     name: null
                 }
+            }
+        },
+        computed:{
+            rules(){
+                return this.$store.getters.getCategoryRules;
             }
         },
         methods: {

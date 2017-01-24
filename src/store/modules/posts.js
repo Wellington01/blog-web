@@ -15,7 +15,6 @@ const mutations = {
     'LOAD_POST' (state, post) {
 
         state.post = post;
-        state.loading = false;
     },
     'DELETE_POST' (state, id) {
 
@@ -34,7 +33,7 @@ const actions = {
 
         axios.get('/posts').then(response => {
 
-            commit('LOAD_POSTS', response.data);
+            commit('LOAD_POSTS', response.data.posts);
 
         }).catch(error => {
 
@@ -46,7 +45,7 @@ const actions = {
         axios.get(`/posts/${id}`)
             .then(response => {
 
-                commit('LOAD_POST', response.data);
+                commit('LOAD_POST', response.data.post);
             })
             .catch(error => {
                 console.log(error);

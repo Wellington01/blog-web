@@ -11,6 +11,7 @@
 
 <script>
     export default {
+        name:'ViewPost',
         methods: {
             postId() {
                 return this.$route.params.id;
