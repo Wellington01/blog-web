@@ -1,9 +1,11 @@
 <template>
     <div class="block pagination">
          <el-pagination
+            small
             :current-page="item.current_page"
-            :page-size="item.per_page"
-            layout="total, prev, pager, next"
+            :page-size="parseInt(item.per_page)"
+            @current-change="changePage"
+            layout="prev, pager, next"
             :total="item.total">
         </el-pagination> 
     </div>
@@ -12,10 +14,23 @@
 <script>
     export default {
         name: 'Pagination',
+        props:{
+            config:{
+                type: Object,
+            }
+        },
         computed: {
             item(){
                 return this.$store.getters.pagination;
             }
+        },
+        methods:{
+            changePage(val){
+                this.$store.dispatch('changePage', {page : val, configPagination : this.config});
+            }
+        },
+        created () {
+            this.$store.dispatch('clearPagition');
         }
     }
 </script>

@@ -29,7 +29,7 @@
                 </template>
             </el-table-column>
         </el-table>
-        <app-pagination></app-pagination>
+        <app-pagination :config="config"></app-pagination>
         <router-view></router-view>
     </div>
 </template>
@@ -37,16 +37,22 @@
 <script>
 
     import { mapGetters, mapActions } from 'vuex';
-    import pagination from '../Common/pagination.vue';
+    import Pagination from '../Common/pagination.vue';
 
     export default {
         name: 'ListCategory',
+        data(){
+            return {
+                "isPaginate" : true
+            }
+        },
         components:{
-            appPagination : pagination
+            appPagination : Pagination
         },
         computed: {
             ...mapGetters({
-                categories : 'allCategories'
+                categories : 'allCategories',
+                config : 'getConfigPaginateCategory'
             })
         },
         methods: {
@@ -71,6 +77,7 @@
                 }).then(() => {
 
                     this.deleteCategory({'id':category.id, 'callback': this.notify});
+                    this.loadCategories(this.isPaginate);
 
                 }).catch(() => {
                     this.$message({
@@ -82,7 +89,7 @@
         },
         created() {
 
-            this.loadCategories();
+            this.loadCategories(this.isPaginate);
         }
     }
 </script>

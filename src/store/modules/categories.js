@@ -4,36 +4,33 @@ import rules from '../../validations/categoryRules.js';
 const state = {
     categories: [],
     category: {},
-    rules: {}
+    rules: {},
+    configPagination: {
+        'methodLoad': 'LOAD_CATEGORIES',
+        'methodRequest': '/categories'
+    }
 }
 
 const mutations = {
     'LOAD_CATEGORIES' (state, categories) {
-
         state.categories = categories;
     },
     'LOAD_CATEGORY' (state, category) {
-
         state.category = category;
-    },
-    'DELETE_CATEGORIES' (state, id) {
-
-        let category = state.categories.find(e => e.id === id);
-
-        if (category) {
-
-            state.categories.splice(state.categories.indexOf(category), 1);
-        }
     }
 }
 
 const actions = {
 
-    loadCategories({ commit }) {
+    loadCategories({ commit }, paginate) {
 
-        axios.get('/categories').then(response => {
+        axios.get('/categories', { params: { isPaginate: paginate } }).then(response => {
 
-            commit('LOAD_CATEGORIES', response.data.categories);
+            commit('LOAD_CATEGORIES', response.data.items);
+
+            if (response.data.pagination) {
+                commit('LOAD_PAGINATION', response.data.pagination);
+            }
 
         }).catch(error => {
 
@@ -41,6 +38,7 @@ const actions = {
         });
     },
     loadCategory({ commit }, id) {
+
         if (!id) {
             return {
                 id: null,
@@ -68,9 +66,9 @@ const actions = {
                 console.log(error);
             });
     },
-    updateCategory({ commit }, { id, category }) {
+    updateCategory({ commit }, category) {
 
-        axios.put(`/categories/${id}`, category)
+        axios.put(`/categories/${category.id}`, category.category)
             .then(response => {
 
                 window.location.href = "/category";
@@ -79,19 +77,17 @@ const actions = {
                 console.log(error);
             });
     },
-    deleteCategory({ commit }, { id, callback }) {
+    deleteCategory({ commit }, category) {
 
-        axios.delete(`/categories/${id}`).then(response => {
+        axios.delete(`/categories/${category.id}`).then(response => {
 
             if (response.data.success) {
 
-                commit('DELETE_CATEGORIES', id);
-
-                callback('success', response.data.success);
+                category.callback('success', response.data.success);
 
             } else {
 
-                callback('error', response.data.error);
+                category.callback('error', response.data.error);
             }
 
         }).catch(error => {
@@ -109,6 +105,9 @@ const getters = {
     },
     getCategoryRules(state) {
         return state.rules = rules;
+    },
+    getConfigPaginateCategory(state) {
+        return state.configPagination;
     }
 }
 

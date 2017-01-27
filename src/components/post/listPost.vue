@@ -21,19 +21,30 @@
                 </template>
             </el-table-column>
         </el-table>
-    <router-view></router-view>
+        <app-pagination :config="config"></app-pagination>
+        <router-view></router-view>
     </div>
 </template>
 
 <script>
 
     import { mapGetters, mapActions } from 'vuex';
+    import Pagination from '../Common/pagination.vue';
 
     export default {
         name:'ListPost',
+        data(){
+            return {
+                "isPaginate" : true
+            }
+        },
+        components:{
+            appPagination : Pagination
+        },
         computed: {
             ...mapGetters({
-                posts : 'allPosts'
+                posts : 'allPosts',
+                config: 'getConfigPaginatePost'
             })
         },
         methods: {
@@ -58,6 +69,7 @@
                 }).then(() => {
 
                     this.deletePost({'id':post.id, 'callback': this.notify});
+                    this.loadPosts(this.isPaginate);
 
                 }).catch(() => {
                     this.$message({
@@ -69,7 +81,7 @@
         },
         created() {
 
-            this.loadPosts();
+            this.loadPosts(this.isPaginate);
         }
     }
 </script>

@@ -4,7 +4,11 @@ import rules from '../../validations/postRules.js';
 const state = {
     posts: [],
     post: {},
-    rules: {}
+    rules: {},
+    configPagination: {
+        'methodLoad': 'LOAD_POSTS',
+        'methodRequest': '/posts'
+    }
 }
 
 const mutations = {
@@ -15,25 +19,20 @@ const mutations = {
     'LOAD_POST' (state, post) {
 
         state.post = post;
-    },
-    'DELETE_POST' (state, id) {
-
-        let post = state.posts.find(e => e.id === id);
-
-        if (post) {
-
-            state.posts.splice(state.posts.indexOf(post), 1);
-        }
     }
 }
 
 const actions = {
 
-    loadPosts({ commit }) {
+    loadPosts({ commit }, paginate) {
+        debugger;
+        axios.get('/posts', { params: { isPaginate: paginate } }).then(response => {
+            debugger;
+            commit('LOAD_POSTS', response.data.items);
 
-        axios.get('/posts').then(response => {
-
-            commit('LOAD_POSTS', response.data.posts);
+            if (response.data.pagination) {
+                commit('LOAD_PAGINATION', response.data.pagination);
+            }
 
         }).catch(error => {
 
@@ -79,8 +78,6 @@ const actions = {
 
             if (response.data.success) {
 
-                commit('DELETE_POST', id);
-
                 callback('success', response.data.success);
 
             } else {
@@ -103,6 +100,9 @@ const getters = {
     },
     getPostRules(state) {
         return state.rules = rules;
+    },
+    getConfigPaginatePost(state) {
+        return state.configPagination;
     }
 }
 
