@@ -1,4 +1,4 @@
-# nutext-web
+# Training Vue.js with Vuex and Vue-Router
 
 ## Start
 
