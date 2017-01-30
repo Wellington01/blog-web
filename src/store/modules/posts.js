@@ -25,9 +25,9 @@ const mutations = {
 const actions = {
 
     loadPosts({ commit }, paginate) {
-        debugger;
+
         axios.get('/posts', { params: { isPaginate: paginate } }).then(response => {
-            debugger;
+
             commit('LOAD_POSTS', response.data.items);
 
             if (response.data.pagination) {

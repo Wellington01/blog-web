@@ -1,12 +1,12 @@
 <template>
     <div>
         <el-row type="flex" class="row-bg" justify="end">
-            <router-link to="/category/new">
+            <router-link :to="{name : 'createCategory'}">
                 <el-button type="primary">Nova categoria</el-button>
             </router-link>
         </el-row>
         <br>
-        <el-table :data="categories" style="width: 100%" v-if="categories.length > 0" v-loading.body="loading">
+        <el-table :data="categories" v-if="categories.length > 0">
             <el-table-column type="expand" >
                 <template scope="scope">
                     <h3> Posts relacionados</h3>
@@ -30,7 +30,6 @@
             </el-table-column>
         </el-table>
         <app-pagination :config="config"></app-pagination>
-        <router-view></router-view>
     </div>
 </template>
 
@@ -43,7 +42,7 @@
         name: 'ListCategory',
         data(){
             return {
-                "isPaginate" : true
+                isPaginate: true
             }
         },
         components:{
@@ -88,8 +87,11 @@
             }
         },
         created() {
-
-            this.loadCategories(this.isPaginate);
+            this.loadCategories(this.isPaginate)
+                .then(function(a,b,c) {
+                    console.log(a,b,c);
+                })
+                .catch(function() {});
         }
     }
 </script>

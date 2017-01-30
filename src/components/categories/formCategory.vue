@@ -5,7 +5,7 @@
         </el-form-item>
         <el-form-item>
             <el-button type="primary" @click="onSubmit('item')">{{ nameActionForm }}</el-button>
-            <router-link to="/category"> <el-button>Voltar</el-button></router-link>
+            <router-link :to="{name: 'listCategory'}"> <el-button>Voltar</el-button></router-link>
         </el-form-item>
     </el-form>
 </template>

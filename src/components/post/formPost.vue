@@ -16,7 +16,7 @@
         </el-form-item>
         <el-form-item>
             <el-button type="primary" @click="onSubmit('item')">{{ nameActionForm }}</el-button>
-            <router-link to="/post"> <el-button>Voltar</el-button></router-link>
+            <router-link :to="{name : 'listPost'}"> <el-button>Voltar</el-button></router-link>
         </el-form-item>
     </el-form>
 </template>

@@ -21,10 +21,8 @@ const mutations = {
 }
 
 const actions = {
-
     loadCategories({ commit }, paginate) {
-
-        axios.get('/categories', { params: { isPaginate: paginate } }).then(response => {
+        return axios.get('/categories', { params: { isPaginate: paginate } }).then(response => {
 
             commit('LOAD_CATEGORIES', response.data.items);
 
@@ -32,10 +30,11 @@ const actions = {
                 commit('LOAD_PAGINATION', response.data.pagination);
             }
 
+            return ['asd'];
         }).catch(error => {
-
-            console.log(error);
+            throw new Exception();
         });
+
     },
     loadCategory({ commit }, id) {
 

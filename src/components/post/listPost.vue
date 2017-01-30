@@ -1,7 +1,7 @@
 <template>
     <div>
         <el-row type="flex" class="row-bg" justify="end">
-            <router-link to="/post/new">
+            <router-link :to="{name : 'createPost'}" tag="a">
                 <el-button type="primary">Novo post</el-button>
             </router-link>
         </el-row>
@@ -22,7 +22,6 @@
             </el-table-column>
         </el-table>
         <app-pagination :config="config"></app-pagination>
-        <router-view></router-view>
     </div>
 </template>
 
